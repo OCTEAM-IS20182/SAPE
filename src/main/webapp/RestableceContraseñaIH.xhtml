@@ -1,0 +1,48 @@
+<ui:composition
+    template="/WEB-INF/facelets/templates/layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+  <ui:define name="content">
+      
+      <body class="text-center">
+            
+        <div class="jumbotron">
+        <div class="container">
+            
+            <h1 class="h2 mb-2 font-weight-normal">Restablece tu Contraseña</h1>
+            <h:form class="form-signin" >
+                 <table align = "center">
+                    <tr>
+                     <td><h:outputLabel value="Nueva Contraseña:"/></td>
+                     <td><p:inputText value="#{iniciaSesion.username}"/></td> 
+                    </tr><br/><tr>
+                    <td><h:outputLabel value="Confirmacion de Contraseña:"/></td>
+                    <td><p:password value="#{iniciaSesion.contrasena}"/></td>
+                    </tr>
+                </table>
+                <div align = "center">
+                    <p:commandButton value=" Aceptar " id="ajax" 
+                          action="PrincipalIH.xhtml" 
+                          styleClass="ui-priority-primary"/>
+                </div>
+              </h:form>
+              
+        </div>
+        </div>
+          
+        <div class="etc-login-form">
+                <p><a href="RegistrarseIH.xhtml">Registrse</a></p>
+                <p><a href="PrincipalIH.xhtml">Volver</a></p>
+        </div>
+       </body>
+       
+  </ui:define>
+
+</ui:composition>
+    
