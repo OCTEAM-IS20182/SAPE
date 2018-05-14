@@ -5,6 +5,8 @@ package controlador;
  * and open the template in the editor.
  */
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.application.FacesMessage;
@@ -138,14 +140,14 @@ public class RegistroBean {
         UsuarioCBD conexion = new UsuarioCBD();
         if (this.getContraseña() != null && !this.getContraseña().equals("")){  
            if(this.getContraseña().equals(this.getConfirmacionContraseña())){
-                if(this.getCorreo().equals(this.getConfirmacionCorreo())){ 
+                if(this.getCorreo().equals(this.getConfirmacionCorreo()) && this.getCorreo().contains("@ciencias.unam.mx")){
                     try{
                        usuario.setNombreUsuario(this.getNombreUsuario());
                        usuario.setNombre(this.getNombre());
                        usuario.setApellidoPaterno(this.getApellidoPaterno());
                        usuario.setApellidoMaterno(this.getApellidoMaterno());
                        usuario.setCorreoElectronico(this.getCorreo());
-                       usuario.setContrasena(this.getContraseña());
+                       usuario.setContrasena(conexion.hash(this.getContraseña()));
                        usuario.setFechaDeNacimiento(this.getFechaNacimiento());
                        usuario.setCarrera(this.getCarrera());
                        usuario.setIdUsuario(conexion.maxIndice());
@@ -166,7 +168,7 @@ public class RegistroBean {
                   }
                 } else {  
                     FacesContext context = FacesContext.getCurrentInstance();
-                    context.addMessage(null, new FacesMessage("Error", "Los correos no coinciden") );
+                    context.addMessage(null, new FacesMessage("Error", "Correo(s) invalidos") );
                     return "";
                 }
          }
@@ -181,10 +183,15 @@ public class RegistroBean {
             context.addMessage(null, new FacesMessage("Error", "Contraseña inválida") );
             return "";
         }
-  
     }
+   
     
     public String volver() {
         return "PrincipalIH?faces-redirect=true";
     }
 }
+
+/* 
+    ps -awwef | grep tomcat
+    sudo -u postgres psql
+*/

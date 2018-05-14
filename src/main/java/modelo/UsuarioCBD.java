@@ -5,6 +5,8 @@
  */
 package modelo;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -78,7 +80,7 @@ public class UsuarioCBD extends ConexionBD {
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
-            String sql = "SELECT * FROM usuario where nombre_usuario ='" + username + "' and contrasena = '" + contrasena +"'";
+            String sql = "SELECT * FROM usuario where nombre_usuario ='" + username + "' and contrasena = '" + hash(contrasena) +"'";
             SQLQuery query = session.createSQLQuery(sql);
             query.addEntity(Usuario.class);
             List<Usuario> userList = query.list();
@@ -131,6 +133,24 @@ public class UsuarioCBD extends ConexionBD {
         return u;
     }
     
+    public String hash(String passwordToHash) {
+        String generatedPassword = null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(passwordToHash.getBytes());
+            byte[] bytes = md.digest();
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++) {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            generatedPassword = sb.toString();
+        }
+        catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+       return generatedPassword;
+    }
+    
     public Usuario validaCorreo(String correo){
         SessionFactory factory; 
         try{
@@ -144,6 +164,37 @@ public class UsuarioCBD extends ConexionBD {
         try{
             tx = session.beginTransaction();
             String sql = "SELECT * FROM usuario where correo_electronico ='" + correo + "'";
+            SQLQuery query = session.createSQLQuery(sql);
+            query.addEntity(Usuario.class);
+            List<Usuario> userList = query.list();
+            tx.commit();
+            if (userList!= null && !userList.isEmpty()) {
+                System.out.println(userList.get(0));
+                return userList.get(0);
+            }else{
+                return null;
+            }
+        }catch (HibernateException e) {
+            if (tx!=null) tx.rollback();
+            return null; 
+        }finally {
+            session.close(); 
+        }  
+    }
+    
+    public Usuario validaUsuario(String usuario){
+        SessionFactory factory; 
+        try{
+            factory = new Configuration().configure().buildSessionFactory();
+        }catch (Throwable ex) { 
+            System.err.println("Failed to create sessionFactory object." + ex);
+            throw new ExceptionInInitializerError(ex); 
+        }    
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            String sql = "SELECT * FROM usuario where nombre_usuario ='" + usuario + "'";
             SQLQuery query = session.createSQLQuery(sql);
             query.addEntity(Usuario.class);
             List<Usuario> userList = query.list();

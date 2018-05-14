@@ -8,6 +8,5 @@ modelo/ConexionBD.class
 controlador/RegistroBean.class
 modelo/Usuario.class
 modelo/HibernateFactory.class
-IniciaSesion.class
 modelo/PreguntaBD.class
 modelo/Categoria.class

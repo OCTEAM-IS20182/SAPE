@@ -25,6 +25,7 @@ public class IniciaSesion implements Serializable{
     private boolean activo;
     private FacesContext faceContext;
     private HttpSession sesion;
+    private int incorrectas = 0;
 
     public IniciaSesion(){
         faceContext = FacesContext.getCurrentInstance();
@@ -82,8 +83,14 @@ public class IniciaSesion implements Serializable{
     public void setOlvidada(String olvidada) {
         this.olvidada = olvidada;
     }
-    
-    
+
+    public int getIncorrectas() {
+        return incorrectas;
+    }
+
+    public void setIncorrectas(int incorrectas) {
+        this.incorrectas = incorrectas;
+    }
     
     public String salir(){
         this.setUsuario(null);
@@ -93,12 +100,17 @@ public class IniciaSesion implements Serializable{
     
     public String ingresar(){
         UsuarioCBD usuarioBD = new UsuarioCBD();
+        
         usuario = usuarioBD.valida(this.getUsername(),this.getContrasena());
         FacesContext context = FacesContext.getCurrentInstance();
+   
+        System.out.println("HOla");
+        
         if(usuario !=null){
             this.setUsuario(usuario);
             this.setContrasena("");
             usuario.setActivo(true);
+            this.setIncorrectas(0);
             this.setActivo(true);
             try{
                 usuarioBD.update(usuario);
@@ -111,9 +123,16 @@ public class IniciaSesion implements Serializable{
             sesion.setAttribute("usuario", usuario);
             System.out.println("Sí está.");
             return "PrincipalIH?faces-redirect=true";
+        } 
+        if(usuarioBD.validaUsuario(this.getUsername()) != null) {
+            this.setIncorrectas(this.getIncorrectas()+1);
+            System.out.println(this.getIncorrectas());
+            if(this.getIncorrectas() > 6) {
+                return "DemasiadosIntentos.xhtml";
+            }
         }
-        this.setMensaje("Error! Contraseña o correo incorrectos");
-        System.out.println("Error! Contraseña o correo incorrectos");
+        this.setMensaje("Error! Contraseña o correo incorrectos 00");
+        System.out.println("Error! Contraseña o correo incorrectos" + this.getIncorrectas());
         context.addMessage(null, new FacesMessage("Error! Contraseña o correo incorrectos", "Error en inicio de sesion") );
         return "IniciaSesion?faces-redirect=true";
     }

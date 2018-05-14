@@ -80,9 +80,14 @@ public class CreacionPregunta implements Serializable{
             System.out.println("TODO BIEN=================");
             
             FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage("Exito", "Su pregunta se agrego correctamente") );
-            pbd.save(p);                                
-            return "VerificacionPreguntaIH"; 
+            if(p.getCategoria() == "" || p.getContenido() == "" || p.getDescripcion() == ""){                
+                context.addMessage(null, new FacesMessage("Error, debes llenar todos los campos", "Debes llenar todos los campos") );
+                return "";
+            }else{                
+                context.addMessage(null, new FacesMessage("Pregunta agregada", "Su pregunta se agrego correctamente") );
+                pbd.save(p);                                
+                return "VerificacionPreguntaIH";                
+            }
         }catch(Exception e){
             System.out.println("Algo fallo");
         }
