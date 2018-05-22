@@ -1,0 +1,28 @@
+<ui:composition
+    template="/WEB-INF/facelets/templates/layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:define name="content">
+    <h:body>
+                        <p:outputLabel value="Nombre:" />                   
+                        <br/>
+                        <h:outputLabel value="#{buscaBean.contenido}" id= "contenido"/>
+                        <br/>
+                        <p:outputLabel value="Nombre:" />  
+                        <br/>
+                        <h:outputLabel value="#{buscaBean.descripcion}" id= "descripcion"/>
+                        <br/>
+                        <p:outputLabel value="Nombre:" />  
+                        <br/>
+                        <h:outputLabel value="#{buscaBean.categoria}" id= "categoria"/>
+                        <br/>
+                        <p:outputLabel value="Nombre:" />  
+                        <br/>
+                        <h:outputLabel value="#{buscaBean.resultados}" id= "resultados"/>
+                        <br/>
+                        <h:commandButton id = "regresar" value="Regresar" action="PrincipalIH?faces-redirect=true"/>
+    </h:body>
+        </ui:define>
+</ui:composition>

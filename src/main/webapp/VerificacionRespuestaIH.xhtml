@@ -1,0 +1,20 @@
+<ui:composition
+    template="/WEB-INF/facelets/templates/layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+  <ui:define name="content">
+    <body class="text-center">
+        <div class="jumbotron">
+        <div class="container">
+            <h:form id ="myForm">
+                <h1>Respuesta agregada</h1>
+                Su respuesta fue agregada exitosamente.                                                                    
+                <h:commandButton id = "regresar" value="Regresar" action="index.xhtml"/>
+            </h:form>             
+        </div>
+        </div>
+    </body>    
+  </ui:define>
+</ui:composition>

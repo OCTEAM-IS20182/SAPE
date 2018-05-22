@@ -1,0 +1,37 @@
+<ui:composition
+    template="/WEB-INF/facelets/templates/layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+  <ui:define name="content">
+    <body class="text-center">
+        <div class="jumbotron">
+        <div class="container">
+            <h:form id ="myForm2">
+                <h1>Agregar pregunta</h1>
+                Inserte su pregunta
+                <table align="center">
+                    <tr>
+                        <td>Contenido</td>                   
+                        <td><h:inputText value="#{preguntaBean.contenido}" id="contenido"/></td>
+                    </tr>
+                    <tr>
+                        <td>Descripción</td>                    
+                        <td><h:inputText value="#{preguntaBean.descripcion}" id="descripcion" /></td>
+                    </tr>
+                    <tr>
+                        <td>Categoria</td>                    
+                        <td><h:inputText value="#{preguntaBean.categoria}" id="categoria"/></td>                        
+                    </tr>     
+                    
+                </table>
+            <div align="center">
+                <h:commandButton id = "agregar" value="Agregar" action="#{preguntaBean.agregarPregunta()}" actionListener="#{preguntaBean.listener}"/>
+            </div>                
+            </h:form>         
+        </div>
+        </div>
+    </body>    
+  </ui:define>
+</ui:composition>
