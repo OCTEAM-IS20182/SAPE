@@ -5,31 +5,48 @@
  */
 package modelo;
 
-import modelo.DataAccessLayerException;
-import modelo.Pregunta;
-
 /**
  *
  * @author alfonso
  */
-public class RespuestaBD extends ConexionBD{
+public class RespuestaBD extends ConexionBD {
+
+    /**
+    *Metodo de la clase respuestaBD.
+    */
     public RespuestaBD() {
         super();
     }
-    
-    public void save(Respuesta p) throws DataAccessLayerException {
+
+    /**
+    *Metodo de la clase respuestaBD.
+    *@param p variable.
+    */
+    public void save(final Respuesta p) throws DataAccessLayerException {
         super.save(p);
     }
 
-    public void update(Respuesta p) throws DataAccessLayerException {
+    /**
+    *Metodo de la clase respuestaBD.
+    *@param p variable.
+    */
+    public void update(final Respuesta p) throws DataAccessLayerException {
         super.update(p);
     }
 
+    /**
+    *Metodo de la clase respuestaBD.
+    *@param p variable.
+    */
     public void delete(Respuesta p) throws DataAccessLayerException {
         super.delete(p);
     }
-        
-    public int maxIndice(){
+
+    /**
+    *Metodo de la clase respuestaBD.
+    *@preturn un numero
+    */
+    public int maxIndice() {
         return super.maxIndice("respuesta", "id_respuesta");
-    }         
+    }
 }

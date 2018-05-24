@@ -5,7 +5,6 @@
  */
 package modelo;
 
-import modelo.DataAccessLayerException;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -18,6 +17,9 @@ import org.hibernate.cfg.Configuration;
  */
 public class HibernateFactory {
 
+    /**
+    * Variable de clase.
+    */
     private static SessionFactory sessionFactory;
 
     /**
@@ -49,15 +51,27 @@ public class HibernateFactory {
         }
     }
 
+
+    /**
+    * Metodo de la clase factory.
+    *@return
+    */
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 
+    /**
+    * Metodo de la clase factory.
+    *@return
+    */
     public static Session openSession() throws HibernateException {
         buildIfNeeded();
         return sessionFactory.openSession();
     }
 
+    /**
+    * Metodo de la clase factory.
+    */
     public static void closeFactory() {
         if (sessionFactory != null) {
             try {
@@ -68,7 +82,11 @@ public class HibernateFactory {
         }
     }
 
-    public static void close(Session session) {
+    /**
+    * Metodo de la clase factory.
+    *@param session
+    */
+    public static void close(final Session session) {
         if (session != null) {
             try {
                 session.close();
@@ -78,7 +96,11 @@ public class HibernateFactory {
         }
     }
 
-    public static void rollback(Transaction tx) {
+    /**
+    * Metodo de la clase factory.
+    *@param tx
+    */
+    public static void rollback(final Transaction tx) {
         try {
             if (tx != null) {
                 tx.rollback();

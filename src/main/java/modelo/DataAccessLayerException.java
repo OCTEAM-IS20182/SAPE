@@ -11,18 +11,34 @@ package modelo;
  */
 public class DataAccessLayerException extends RuntimeException {
 
+    /**
+    * Metodo de la clase data.
+    */
     public DataAccessLayerException() {
     }
 
-    public DataAccessLayerException(String message) {
+    /**
+    * Metodo de la clase data.
+    *@param message
+    */
+    public DataAccessLayerException(final String message) {
         super(message);
     }
 
-    public DataAccessLayerException(Throwable cause) {
+    /**
+    * Metodo de la clase data.
+    *@param cause
+    */
+    public DataAccessLayerException(final Throwable cause) {
         super(cause);
     }
 
-    public DataAccessLayerException(String message, Throwable cause) {
+    /**
+    * Metodo de la clase data.
+    *@param message
+    *@param cause
+    */
+    public DataAccessLayerException(final String message, final Throwable cause) {
         super(message, cause);
     }
 }

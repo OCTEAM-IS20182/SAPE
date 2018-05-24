@@ -5,7 +5,6 @@
  */
 package modelo;
 
-import modelo.DataAccessLayerException;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -20,15 +19,25 @@ import org.hibernate.cfg.Configuration;
  * @author pedro
  */
 public abstract class ConexionBD {
-
-    protected Session session;
-    protected Transaction tx;
-
+    /**
+    * Variable de clase.
+    */
+    public Session session;
+    /**
+    * Variable de clase.
+    */
+    public Transaction tx;
+    /**
+    * Metodo de la clase conexionBD.
+    */
     public ConexionBD() {
         HibernateFactory.buildIfNeeded();
     }
-
-    protected void save(Object obj) {
+    /**
+    * Metodo de la clase conexionBD.
+    *@param obj parametro
+    */
+    protected void save(final Object obj) {
         try {
             startOperation();
             session.persist(obj);
@@ -39,8 +48,11 @@ public abstract class ConexionBD {
             HibernateFactory.close(session);
         }
     }
-
-    protected void update(Object obj) {
+    /**
+    * Metodo de la clase conexionBD.
+    *@param obj parametro
+    */
+    protected void update(final Object obj) {
         try {
             startOperation();
             session.update(obj);
@@ -51,8 +63,11 @@ public abstract class ConexionBD {
             HibernateFactory.close(session);
         }
     }
-
-    protected void delete(Object obj) {
+    /**
+    * Metodo de la clase conexionBD.
+    *@param obj parametro
+    */
+    protected void delete(final Object obj) {
         try {
             startOperation();
             session.delete(obj);
@@ -63,8 +78,13 @@ public abstract class ConexionBD {
             HibernateFactory.close(session);
         }
     }
-
-    protected Object find(Class clazz, Long id) {
+    /**
+    * Metodo de la clase conexionBD.
+    *@param clazz parametro
+    *@param id parametro
+    *@return object
+    */
+    protected Object find(final Class clazz, final Long id) {
         Object obj = null;
         try {
             startOperation();
@@ -77,8 +97,12 @@ public abstract class ConexionBD {
         }
         return obj;
     }
-
-    protected List findAll(Class clazz) {
+    /**
+    * Metodo de la clase conexionBD.
+    *@param clazz parametro
+    *@return lista parametro
+    */
+    protected List findAll(final Class clazz) {
         List objects = null;
         try {
             startOperation();
@@ -92,17 +116,27 @@ public abstract class ConexionBD {
         }
         return objects;
     }
-    
-    protected void handleException(HibernateException e) throws DataAccessLayerException {
+    /**
+    * Metodo de la clase conexionBD.
+    *@param e parametro
+    */
+    protected void handleException (final HibernateException e) throws DataAccessLayerException {
         HibernateFactory.rollback(tx);
         throw new DataAccessLayerException(e);
     }
-
+    /**
+    * Metodo de la clase conexionBD.
+    */
     protected void startOperation() throws HibernateException {
         session = HibernateFactory.openSession();
         tx = session.beginTransaction();
     }
-    
+    /**
+    * Metodo de la clase conexionBD.
+    *@param tabla
+    *@param atributo
+    *@return int
+    */
     public int maxIndice(String tabla,String atributo){
       SessionFactory factory;
         try {
@@ -111,29 +145,28 @@ public abstract class ConexionBD {
             System.err.println("Failed to create sessionFactory object." + ex);
             throw new ExceptionInInitializerError(ex);
         }
-        int max=-1;
-        Session session = factory.openSession();
-        Transaction tx = null;
+        int max = -1;
+        Session session1 = factory.openSession();
+        Transaction tx1 = null;
         //System.out.println(max+1);
         try {
-            tx = session.beginTransaction();
-            String sql = "SELECT max("+atributo+") FROM "+tabla;
-            SQLQuery query = session.createSQLQuery(sql);
+            tx1 = session1.beginTransaction();
+            String sql = "SELECT max(" + atributo + ") FROM " + tabla;
+            SQLQuery query = session1.createSQLQuery(sql);
             //System.out.println("hola"+sql);
-            if(query.uniqueResult() != null){
-                max = (int)query.uniqueResult();
+            if (query.uniqueResult() != null) {
+                max = (int) query.uniqueResult();
             }
             //System.out.println(max);
-            tx.commit();
+            tx1.commit();
             //return max;
             //System.out.println(max);
-        }catch(HibernateException e){
-            System.out.println("error xD"+e);
-            
-        }finally{
-            session.close();
+        } catch (HibernateException e) {
+            System.out.println("error xD" + e);
+        } finally {
+            session1.close();
         }
       //System.out.println(max);
-      return max+1;
+      return max + 1;
     }
 }
