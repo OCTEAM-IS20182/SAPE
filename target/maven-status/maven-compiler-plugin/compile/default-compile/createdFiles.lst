@@ -5,7 +5,6 @@ modelo/HibernateUtil.class
 modelo/Pregunta.class
 controlador/BuscaBean.class
 controlador/RespuestaBean.class
-Confirmacion.class
 modelo/ConexionBD.class
 controlador/RegistroBean.class
 modelo/Usuario.class

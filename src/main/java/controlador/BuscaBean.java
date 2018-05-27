@@ -6,26 +6,28 @@ package controlador;
  * and open the template in the editor.
  */
 
-import javax.faces.bean.SessionScoped;
+import java.io.Serializable;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import modelo.Pregunta;
 import modelo.PreguntaBD;
 import java.util.List;
+import javax.faces.event.ActionEvent;
 
 /**
  *
  * @author pedro
  */
 @ManagedBean(name = "buscaBean")
-@SessionScoped
+@RequestScoped
 
-public class BuscaBean {
+public class BuscaBean implements Serializable {
 
     /**
      * La variable en la que se guardara la busqueda deseada.
      */
-    private String busqueda;
+    public String busqueda;
     /**
      * La variable en la que se guardaran los resultados de la busqueda.
      */
@@ -168,6 +170,15 @@ public class BuscaBean {
     public void setResultados(final int resultadosAux) {
         this.resultados = resultadosAux;
     }
+    
+    /**
+     * Metodo desconocido que necesita el bean xD.
+     * @param event el evento deseado.
+     */
+    public void listener(final ActionEvent event) {
+        busqueda = (String) event.getComponent()
+                    .getAttributes().get("busqueda");
+    }
 
     /**
      * Metodo que te redirecciona a la pagina con los resultados de la busqeda.
@@ -176,7 +187,7 @@ public class BuscaBean {
     public String buscar() {
         PreguntaBD conexion = new PreguntaBD();
 
-        preguntas = conexion.busca(this.busqueda);
+        preguntas = conexion.busca("x");
         FacesContext context = FacesContext.getCurrentInstance();
 
         System.out.println("HOla");

@@ -7,6 +7,7 @@ package controlador;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import modelo.Pregunta;
@@ -45,6 +46,21 @@ public class CreacionPregunta implements Serializable {
      * de la pregutna a agregar a la base.
      */
     private Pregunta pregunta;
+
+    /**
+     * Variable para buscar una pregunta.
+     */
+    private String busqueda;
+
+    /**
+     * Variable que guarda la lista de preguntas.
+     */
+    private List<Pregunta> preguntas;
+
+    /**
+     * La variable en la que se guardara la busqueda deseada.
+     */
+    private int resultados;
 
     /**
      * Metodo que regresa el contenido de la pregunta agregada.
@@ -110,6 +126,54 @@ public class CreacionPregunta implements Serializable {
     }
 
     /**
+     * La variable en la que se guardara la busqueda deseada.
+     * @return hola.
+     */
+    public int getResultados() {
+        return resultados;
+    }
+
+    /**
+     * La variable en la que se guardara la busqueda deseada.
+     * @param resultadosAux hola.
+     */
+    public void setResultados(final int resultadosAux) {
+        this.resultados = resultadosAux;
+    }
+
+    /**
+     * Regresa la cadena con la busqueda del usuario.
+     * @return regresa la busqueda.
+     */
+    public String getBusqueda() {
+        return busqueda;
+    }
+
+    /**
+     * metodo que le asigna un valor a la busqueda.
+     * @param busquedaAux el string para poner la busqueda.
+     */
+    public void setBusqueda(final String busquedaAux) {
+        this.busqueda = busquedaAux;
+    }
+
+    /**
+     * Metodo que regresa la lista de resultados de las busquedas.
+     * @return la lista de resultados de la busqueda.
+     */
+    public List<Pregunta> getPreguntas() {
+        return preguntas;
+    }
+
+    /**
+     * metodo para asignar una lista de preguntas al objeto de la clase.
+     * @param preguntasAux una lista de preguntas para asignar al bean.
+     */
+    public void setPreguntas(final List<Pregunta> preguntasAux) {
+        this.preguntas = preguntasAux;
+    }
+
+    /**
      * Meotod que te direcciona a la pagina de confirmacion de creacion
      * de pregunta despues de agregarla a la base.
      * @return la direccion de la vista de confirmacion de pregunta,
@@ -143,6 +207,35 @@ public class CreacionPregunta implements Serializable {
         }
         return "index";
 
+    }
+
+    /**
+     * Metodo que te redirecciona a la pagina con los resultados de la busqeda.
+     * @return La direccion de la pagina que muestra la busqueda.
+     */
+    public String buscar() {
+        PreguntaBD conexion = new PreguntaBD();
+
+        preguntas = conexion.busca(this.getBusqueda());
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        System.out.println("HOla");
+        System.out.println(preguntas.size());
+        if (preguntas.size() > 0) {
+            System.out.println("si llegue");
+            pregunta = preguntas.get(0);
+            System.out.println(pregunta.getCategoria());
+            this.setCategoria(pregunta.getCategoria());
+            this.setContenido(pregunta.getContenido());
+            this.setDescripcion(pregunta.getDescripcion());
+            this.setResultados(preguntas.size());
+            return "ResultadoBusquedaIH?faces-redirect=true";
+        }
+        this.setCategoria("Sin Resultados");
+        this.setContenido("Sin Resultados");
+        this.setDescripcion("Sin Resultados");
+        this.setResultados(0);
+        return "ResultadoBusquedaIH?faces-redirect=true";
     }
 
 }
