@@ -6,6 +6,7 @@ package controlador;
  */
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
@@ -216,12 +217,12 @@ public class CreacionPregunta implements Serializable {
     public String buscar() {
         PreguntaBD conexion = new PreguntaBD();
 
-        preguntas = conexion.busca(this.getBusqueda());
+        preguntas = conexion.busca(this.getContenido());
         FacesContext context = FacesContext.getCurrentInstance();
 
         System.out.println("HOla");
-        System.out.println(preguntas.size());
-        if (preguntas.size() > 0) {
+        System.out.println(preguntas != null);
+        if (preguntas != null) {
             System.out.println("si llegue");
             pregunta = preguntas.get(0);
             System.out.println(pregunta.getCategoria());

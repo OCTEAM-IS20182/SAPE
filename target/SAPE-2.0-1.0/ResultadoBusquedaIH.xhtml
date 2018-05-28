@@ -2,28 +2,40 @@
     template="/WEB-INF/facelets/templates/layout.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:p="http://primefaces.org/ui"
-    xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <ui:define name="content">
-    <h:body>
-                        <p:outputLabel value="Nombre:" />                   
-                        <br/>
-                        <h:outputLabel value="#{preguntaBean.contenido}" id= "contenido"/>
-                        <br/>
-                        <p:outputLabel value="Nombre:" />  
-                        <br/>
-                        <h:outputLabel value="#{preguntaBean.descripcion}" id= "descripcion"/>
-                        <br/>
-                        <p:outputLabel value="Nombre:" />  
-                        <br/>
-                        <h:outputLabel value="#{preguntaBean.categoria}" id= "categoria"/>
-                        <br/>
-                        <p:outputLabel value="Nombre:" />  
-                        <br/>
-                        <h:outputLabel value="#{preguntaBean.resultados}" id= "resultados"/>
-                        <br/>
-                        <h:commandButton id = "regresar" value="Regresar" action="PrincipalIH?faces-redirect=true"/>
-    </h:body>
-        </ui:define>
-</ui:composition>
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
 
+  <ui:define name="content">
+    <div class="jumbotron">
+      <div class="container">
+        <h1 class="display-3">Los resultados de la búsqueda son:</h1> 
+      </div>
+    </div>
+    <h:form>
+        <p:dataScroller value = "#{buscaBean.preguntas}" var="pregunta" chunkSize="10">
+            <f:facet name="header">
+                <br>Resultados de la búsqueda</br>
+            </f:facet>
+            <h:panelGrid columns ="2" style ="width:100%" columnClasses = "detail">
+                <p:outputPanel>
+                    <h:panelGrid columns = "2" cellpadding="10" columnClasses = "detail">
+                        <h:outputText value="Contenido:" />
+                        <h:outputText value="#{pregunta.contenido}" style="font-weight: bold"/>
+
+                        <h:outputText value="Descripcion:" />
+                        <h:outputText value="#{pregunta.descripcion}" style="font-weight: bold"/>
+
+                        <h:outputText value="Categoria:" />
+                        <h:outputText value="#{pregunta.categoria}" style="font-weight: bold"/>
+                        
+                        <h:commandButton id = "respuestas" value="Ver Pregunta" action = "PreguntaRespuestaIH?faces-redirect=true"/>
+                      
+                    </h:panelGrid>
+                    <hr/>
+                </p:outputPanel>
+            </h:panelGrid>
+        </p:dataScroller>
+    </h:form>
+    </ui:define>  
+</ui:composition>
