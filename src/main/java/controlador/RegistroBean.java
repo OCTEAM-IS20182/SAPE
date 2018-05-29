@@ -261,6 +261,7 @@ public class RegistroBean {
     public String registrar() {
         usuario = new Usuario();
         UsuarioCBD conexion = new UsuarioCBD();
+        Confirmacion c = new Confirmacion(this.getCorreo());
         if (this.getContrasena() != null && !this.getContrasena().equals("")) {
            if (this.getContrasena().equals(this.getConfirmacionContrasena())) {
                 if (this.getCorreo().equals(this.getConfirmacionCorreo())
@@ -284,7 +285,6 @@ public class RegistroBean {
                        conexion.save(usuario);
                        System.out.printf("Todo Bien");
                        this.setMensaje("todo Bien");
-
                        return "RegistroExitosoIH?faces-redirect=true";
                   } catch (Exception e) {
                       this.setMensaje("Algo Fallo\n");

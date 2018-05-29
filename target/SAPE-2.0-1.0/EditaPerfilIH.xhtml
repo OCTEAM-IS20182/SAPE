@@ -66,25 +66,21 @@
                     <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" >
                         
                         <p:outputLabel value="Nombre:" /> 
-                        <p:inputText value="#{editarPerfil.nombre}" label="Nombre"/>
+                        <p:inputText value="#{iniciaSesion.nombre}" label="Nombre"/>
                         <p:outputLabel value="Apellido Paterno:" /> 
-                        <p:inputText value="#{editarPerfil.apellidoPaterno}"/> 
+                        <p:inputText value="#{iniciaSesion.apellidoPaterno}"/> 
                         <p:outputLabel value="Apellido Materno:" /> 
-                        <p:inputText value="#{editarPerfil.apellidoMaterno}"/> 
+                        <p:inputText value="#{iniciaSesion.apellidoMaterno}"/> 
                         <p:outputLabel value="Correo:" /> 
-                        <p:inputText id="correo" value="#{editarPerfil.correo}"  label="Correo">
+                        <p:inputText id="correo" value="#{iniciaSesion.correo}"  label="Correo">
                         </p:inputText>
                         <p:outputLabel id="confCorreo" value="Confirmacion correo:" /> 
-                        <p:inputText value="#{editarPerfil.confirmacionCorreo}" label="Confirmacion correo">
+                        <p:inputText value="#{iniciaSesion.correoConfirmacion}" label="Confirmacion correo">
                         </p:inputText>
-                        <p:outputLabel value="Contraseña:" /> 
-                        <p:password id="feedback" value="#{editarPerfil.contraseña}" feedback="true" label="Contraseña"/>
-                        <p:outputLabel value="Confirmación contraseña:" /> 
-                        <p:password id="feedback2" value="#{editarPerfil.confirmacionContraseña}" feedback="true" label="Confirmacion contraseña"/>
                         <p:outputLabel for="popup" value="Fecha de Nacimiento:" />
-                        <p:calendar id="popup" value="#{editarPerfil.fechaNacimiento}"/>
+                        <p:calendar id="popup" value="#{iniciaSesion.fechaNacimiento}"/>
                         <p:outputLabel value="Cambiar carrera:" />
-                        <h:selectOneMenu id="txt2" value="#{editarPerfil.carrera}" label="Cambiar carrera:">
+                        <h:selectOneMenu id="txt2" value="#{iniciaSesion.carrera}" label="Cambiar carrera:">
                             <f:selectItem itemLabel="Selecciona una" itemValue="" noSelectionOption="true" />
                             <f:selectItem itemLabel="Ciencias de la Computación" itemValue="Ciencias de la Computacion" />
                             <f:selectItem itemLabel="Actuaría" itemValue="Actuaría" />
@@ -95,18 +91,18 @@
                             <f:selectItem itemLabel="Matematicas Aplicadas" itemValue="Matematicas Aplicadas" />
                         </h:selectOneMenu>
                         
-                        <p:commandButton value="Guardar" action="#{editarPerfil.guardar()}" id="ajax"
+                        <p:commandButton value="Guardar" action="#{iniciaSesion.guardar()}" id="ajax"
                                          update="msn, growl" styleClass="ui-priority-primary"/>
                         
                         <p><a href="PrincipalIH.xhtml">Volver</a></p>
                     </h:panelGrid>
                     
-                    <h:outputText id="msn" value="#{editarPerfil.mensaje}" />
+                    <h:outputText id="msn" value="#{iniciaSesion.mensaje}" />
 
                     <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
                         <p:panelGrid id="display" columns="2" columnClasses="label,value">
                             <h:outputText value="Popup:" />
-                            <h:outputText value="#{editarPerfil.fechaNacimiento}">
+                            <h:outputText value="#{iniciaSesion.fechaNacimiento}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
                         </p:panelGrid>

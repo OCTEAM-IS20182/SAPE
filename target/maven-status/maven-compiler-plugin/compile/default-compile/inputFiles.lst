@@ -1,8 +1,10 @@
+/home/pedro/Escritorio/SI/SAPE-2.0/src/main/java/controlador/EditaPerfil.java
 /home/pedro/Escritorio/SI/SAPE-2.0/src/main/java/controlador/BuscaBean.java
 /home/pedro/Escritorio/SI/SAPE-2.0/src/main/java/modelo/Usuario.java
 /home/pedro/Escritorio/SI/SAPE-2.0/src/main/java/modelo/RespuestaBD.java
 /home/pedro/Escritorio/SI/SAPE-2.0/src/main/java/modelo/HibernateFactory.java
 /home/pedro/Escritorio/SI/SAPE-2.0/src/main/java/modelo/Respuesta.java
+/home/pedro/Escritorio/SI/SAPE-2.0/src/main/java/controlador/MuestraPregunta.java
 /home/pedro/Escritorio/SI/SAPE-2.0/src/main/java/modelo/DataAccessLayerException.java
 /home/pedro/Escritorio/SI/SAPE-2.0/src/main/java/controlador/Confirmacion.java
 /home/pedro/Escritorio/SI/SAPE-2.0/src/main/java/controlador/RespuestaBean.java

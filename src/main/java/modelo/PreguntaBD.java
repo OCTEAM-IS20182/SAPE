@@ -7,6 +7,7 @@ package modelo;
 
 import java.util.List;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -79,6 +80,39 @@ public class PreguntaBD extends ConexionBD{
             if (userList !=  null && !userList.isEmpty()) {
                 System.out.println(userList);
                 return userList;
+            } else {
+                return null;
+            }
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            return null;
+        } finally {
+            session.close();
+        }
+    }
+    
+    public Pregunta getPregunta(int id) {
+        SessionFactory factory;
+        try {
+            factory = new Configuration().configure().buildSessionFactory();
+        } catch (Throwable ex) {
+            System.err.println("Failed to create sessionFactory object." + ex);
+            throw new ExceptionInInitializerError(ex);
+        }
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            String sql = "SELECT * FROM pregunta where id_pregunta ='" + Integer.toString(id) + "'";
+            SQLQuery query = session.createSQLQuery(sql);
+            query.addEntity(Pregunta.class);
+            List<Pregunta> userList = query.list();
+            tx.commit();
+            if (userList != null && !userList.isEmpty()) {
+                System.out.println(userList.get(0));
+                return userList.get(0);
             } else {
                 return null;
             }

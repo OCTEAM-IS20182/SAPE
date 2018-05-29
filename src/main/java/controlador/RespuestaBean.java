@@ -5,20 +5,23 @@
  */
 package controlador;
 
+import java.util.Date;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import modelo.Respuesta;
 import modelo.Pregunta;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
 import javax.faces.context.FacesContext;
+import modelo.PreguntaBD;
 import modelo.RespuestaBD;
 /**
  *
  * @author alfonso
  */
 @ManagedBean(name = "respuestaBean")
-@RequestScoped
+@SessionScoped
 public class RespuestaBean {
 
     /**
@@ -57,6 +60,10 @@ public class RespuestaBean {
     public Respuesta getRespuesta() {
         return respuesta;
     }
+    
+    public void setRespuesta(Respuesta respuesta){
+        this.respuesta = respuesta;
+    }
 
     /**
      * Metodo que recupera la respuesta.
@@ -73,28 +80,34 @@ public class RespuestaBean {
     }
 
 
-    public String agregarRespuesta(CreacionPregunta pb) {
-
-        try {
-            Respuesta r =  new Respuesta();
+    public String agregarRespuesta(Pregunta p){
+        
+        try{                           
+            Respuesta r =  new Respuesta();              
             RespuestaBD rbd = new RespuestaBD();
+            PreguntaBD pbd = new PreguntaBD();
             r.setDescripcion(this.getDescripcion());
-            r.setIdRespuesta(rbd.maxIndice());
+            System.out.println(r.getDescripcion());
+            r.setIdRespuesta(rbd.maxIndice());                        
+            r.setFechaCreacion(new Date());            
+            setRespuesta(r);
             FacesContext context = FacesContext.getCurrentInstance();
-            if (r.getDescripcion() == "") {
-                context.addMessage(null, new
-                        FacesMessage("Error, debes llenar todos los campos",
-                        "Debes llenar todos los campos"));
-                return "";
-            } else {
-                context.addMessage(null, new FacesMessage("Respuesta agregada",
-                        "Su respuesta se agrego correctamente"));
+            if("".equals(r.getDescripcion())){                
+                context.addMessage(null, new FacesMessage("Error, debes llenar todos los campos", "Debes llenar todos los campos") );
+                return "InsercionRespuestaIH";
+            }else{                
+                context.addMessage(null, new FacesMessage("Respuesta agregada", "Su respuesta se agrego correctamente") );
+                r.getPreguntas().add(p);
                 rbd.save(r);
+                p.getRespuestas().add(r); 
+                pbd.update(p);
+                
                 return "VerificacionRespuestaIH";
             }
-        } catch (Exception e) {
+            
+        }catch(Exception e){
             System.out.println("Algo fallo");
         }
-        return "index";
-    }
+        return "index";        
+    }   
 }

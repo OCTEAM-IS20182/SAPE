@@ -27,7 +27,7 @@
                     
                 </table>
             <div align="center">
-                <h:commandButton id = "agregar" value="Agregar" action="#{preguntaBean.agregarPregunta()}" actionListener="#{preguntaBean.listener}"/>
+                <h:commandButton id = "agregar" value="Agregar" action="#{preguntaBean.agregarPregunta(iniciaSesion.usuario)}" actionListener="#{preguntaBean.listener}"/>
             </div>                
             </h:form>         
         </div>

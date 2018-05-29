@@ -15,13 +15,15 @@
                     <br/>
                     <table align="center">
                         <tr>
-                            <td>Respuesta:</td>                   
-                            <td><h:inputText value="#{respuestaBean.descripcion}" id="descripcion"/></td>
-                        </tr>                        
-                    </table>
+                            Respuesta:
+                        </tr>                            
+                        <tr>                                
+                            <td><h:inputTextarea value="#{respuestaBean.descripcion}" id="descripcion" rows="4" cols="50" style="font-size: 15pt"/></td>                            
+                        </tr>                                                
+                    </table>                    
                     <div align="center">
-                        <h:commandButton id = "agregar" value="Agregar" action="#{respuestaBean.agregarRespuesta(preguntaBean)}" actionListener="#{respuestaBean.listener}"/>
-                        <h:commandButton id = "regresar" value="Regresar" action="index.xhtml"/>
+                        <h:commandButton id = "agregar" value="Agregar" action="#{respuestaBean.agregarRespuesta(preguntaBean.pregunta)}" actionListener="#{respuestaBean.listener}"/>
+                        <h:commandButton id = "regresar" value="Regresar" action="PrincipalIH.xhtml"/>
                     </div>                     
                 </div>                                                   
             </h:form> 

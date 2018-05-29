@@ -24,7 +24,6 @@
                         <f:validateLength minimum="2" /></p:inputText>
                         <p:outputLabel value="Nombre:" /> 
                         <p:inputText value="#{registroBean.nombre}" required="true" label="Nombre"/> 
-                        
                         <p:outputLabel value="Apellido Paterno" /> 
                         <p:inputText value="#{registroBean.apellidoPaterno}"/> 
                         <p:outputLabel value="Apellido Materno" /> 
@@ -36,9 +35,9 @@
                         <p:inputText value="#{registroBean.confirmacionCorreo}" required="true" label="Confirmacion correo">
                         </p:inputText>
                         <p:outputLabel value="Contraseña" /> 
-                        <p:password id="feedback" value="#{registroBean.contraseña}" feedback="true" required="true" label="Contraseña"/>
+                        <p:password id="feedback" value="#{registroBean.contrasena}" feedback="true" required="true" label="Contraseña"/>
                         <p:outputLabel value="Confirmacion contraseña" /> 
-                        <p:password id="feedback2" value="#{registroBean.confirmacionContraseña}" feedback="true" required="ture" label="Confirmacion contraseña"/>
+                        <p:password id="feedback2" value="#{registroBean.confirmacionContrasena}" feedback="true" required="ture" label="Confirmacion contraseña"/>
                         <p:outputLabel for="popup" value="Fecha de Nacimiento: dd/mm/yyyy" />
                         <p:calendar id="popup" value="#{registroBean.fechaNacimiento}"/>
                         <p:outputLabel value="Carrera" />
@@ -52,7 +51,6 @@
                             <f:selectItem itemLabel="Ciencias de la Tierra" itemValue="Ciencias de la Tierra" />
                             <f:selectItem itemLabel="Matematicas Aplicadas" itemValue="Matematicas Aplicadas" />
                         </h:selectOneMenu>
-                        
                         <p:commandButton value="Registrarse" action="#{registroBean.registrar()}" id="ajax"
                                          update="msn, growl" styleClass="ui-priority-primary"/>
                         

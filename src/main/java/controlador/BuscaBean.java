@@ -46,6 +46,11 @@ public class BuscaBean implements Serializable {
      * Variable que guarda la lista de preguntas.
      */
     public List<Pregunta> preguntas;
+    
+    /**
+     * Pregunta seleccionada.
+     */
+    public Pregunta pregunta;
 
     /**
      * Metodo que regresa el contenido de la pregunta agregada.
@@ -88,6 +93,14 @@ public class BuscaBean implements Serializable {
         this.preguntas = preguntasAux;
     }
 
+    public Pregunta getPregunta() {
+        return pregunta;
+    }
+
+    public void setPregunta(Pregunta pregunta) {
+        this.pregunta = pregunta;
+    }
+
     /**
      * Metodo que te redirecciona a la pagina con los resultados de la busqeda.
      * @return La direccion de la pagina que muestra la busqueda.
@@ -104,13 +117,19 @@ public class BuscaBean implements Serializable {
             System.out.println("si llegue");
             return "ResultadoBusquedaIH?faces-redirect=true";
         }
-        Pregunta pregunta = new Pregunta();
-        pregunta.setContenido("Sin resultados");
-        pregunta.setDescripcion("sin Resultados");
-        pregunta.setCategoria("Sin Resultados");
-        preguntas = new ArrayList<Pregunta>();
-        preguntas.add(pregunta);
+//        Pregunta pregunta = new Pregunta();
+//        pregunta.setContenido("Sin resultados");
+//        pregunta.setDescripcion("sin Resultados");
+//        pregunta.setCategoria("Sin Resultados");
+//        preguntas = new ArrayList<Pregunta>();
+//        preguntas.add(pregunta);
         return "ResultadoBusquedaIH?faces-redirect=true";
+    }
+    
+    public String mostrar(int id) {
+        PreguntaBD conexion = new PreguntaBD();
+        pregunta = conexion.getPregunta(id);
+        return "PreguntaIH?faces-redirect=true";
     }
 
 }

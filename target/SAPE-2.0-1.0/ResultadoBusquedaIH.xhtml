@@ -6,36 +6,91 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-  <ui:define name="content">
-    <div class="jumbotron">
-      <div class="container">
-        <h1 class="display-3">Los resultados de la búsqueda son:</h1> 
-      </div>
-    </div>
-    <h:form>
-        <p:dataScroller value = "#{buscaBean.preguntas}" var="pregunta" chunkSize="10">
-            <f:facet name="header">
-                <br>Resultados de la búsqueda</br>
-            </f:facet>
-            <h:panelGrid columns ="2" style ="width:100%" columnClasses = "detail">
-                <p:outputPanel>
-                    <h:panelGrid columns = "2" cellpadding="10" columnClasses = "detail">
-                        <h:outputText value="Contenido:" />
-                        <h:outputText value="#{pregunta.contenido}" style="font-weight: bold"/>
+    <ui:define name="content">
+        <div class="jumbotron">
+            <div class="container">
+                <h1 class="display-3">Resultados de la busqueda</h1>
+            </div>
+        </div>
+        <h:form>
+            <p:dataScroller value = "#{buscaBean.preguntas}" var="pregunta" chunkSize="10">
+                <f:facet name="header">
+                    <br>Resultados de la búsqueda</br>
+                </f:facet>
+                <h:panelGrid columns ="2" style ="width:100%" columnClasses = "detail">
+                    <p:outputPanel>
+                        <h:panelGrid columns = "2" cellpadding="10" columnClasses = "detail">
+                            <h:outputText value="Contenido:" />
+                            <h:outputText value="#{pregunta.contenido}" style="font-weight: bold"/>
 
-                        <h:outputText value="Descripcion:" />
-                        <h:outputText value="#{pregunta.descripcion}" style="font-weight: bold"/>
+                            <h:outputText value="Descripcion:" />
+                            <h:outputText value="#{pregunta.descripcion}" style="font-weight: bold"/>
 
-                        <h:outputText value="Categoria:" />
-                        <h:outputText value="#{pregunta.categoria}" style="font-weight: bold"/>
-                        
-                        <h:commandButton id = "respuestas" value="Ver Pregunta" action = "PreguntaRespuestaIH?faces-redirect=true"/>
-                      
-                    </h:panelGrid>
-                    <hr/>
+                            <h:outputText value="Categoria:" />
+                            <h:outputText value="#{pregunta.categoria}" style="font-weight: bold"/>
+
+                            <p:commandLink title="View Detail">
+                                <p:commandButton id = "respuestas" value="Ver Preguntas" action = "#{buscaBean.mostrar(pregunta.idPregunta)}"/>
+                            </p:commandLink>
+
+                        </h:panelGrid>
+                        <hr/>
+                    </p:outputPanel>
+                </h:panelGrid>
+            </p:dataScroller>
+        </h:form>
+
+        <!--        <h:form id="form">
+                    <p:dataGrid var="pregunta" value="#{buscaBean.preguntas}" columns="3" layout="grid"
+                                rows="12" paginator="true" id="pregunta"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                rowsPerPageTemplate="6,12,16">
+        
+                        <f:facet name="header">
+                            <br>Resultados de la búsqueda</br>
+                        </f:facet>
+        
+                        <p:panel header="#{pregunta.idPregunta}" style="text-align:center">
+                            <h:panelGrid columns="1" style="width:100%">
+        
+                                <h:outputText value="#{pregunta.contenido}" style="font-weight: bold"/>
+                                
+                                <h:outputText value="#{pregunta.descripcion}" style="font-weight: bold"/>
+                                
+                                <h:outputText value="#{pregunta.categoria}" style="font-weight: bold"/>
+        
+                                <p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail">
+                                    <h:commandButton id = "respuestas" value="Ver Pregunta" action = "PreguntaIH?faces-redirect=true"/>
+                                    <f:setPropertyActionListener value="#{pregunta}" target="#{buscaBean.pregunta}" />
+                                </p:commandLink>
+                            </h:panelGrid>
+                        </p:panel>
+        
+                    </p:dataGrid>
+                    
+                    <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="carDetail" style="text-align:center;">
+                    <p:panelGrid  columns="2" rendered="#{not empty dataGridView.selectedCar}" columnClasses="label,value">
+                        <f:facet name="header">
+                            <p:graphicImage name="demo/images/car/#{dataGridView.selectedCar.brand}-big.gif"/> 
+                        </f:facet>
+         
+                        <h:outputText value="Id:" />
+                        <h:outputText value="#{dataGridView.selectedCar.id}" />
+         
+                        <h:outputText value="Year" />
+                        <h:outputText value="#{dataGridView.selectedCar.year}" />
+         
+                        <h:outputText value="Color:" />
+                        <h:outputText value="#{dataGridView.selectedCar.color}" style="color:#{dataGridView.selectedCar.color}"/>
+         
+                        <h:outputText value="Price" />
+                        <h:outputText value="$#{dataGridView.selectedCar.price}" />
+                    </p:panelGrid>
                 </p:outputPanel>
-            </h:panelGrid>
-        </p:dataScroller>
-    </h:form>
+            </p:dialog>
+                </h:form>-->
+        <br/>
+        <p><a href="PrincipalIH.xhtml">Volver</a></p>
     </ui:define>  
 </ui:composition>

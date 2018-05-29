@@ -20,7 +20,7 @@
         <property name="fechaCreacion" type="date">
             <column name="fecha_creacion" length="13" />
         </property>
-        <set name="categorias" table="tenercategoria" inverse="false" lazy="true" fetch="select">
+        <set name="categorias" table="tenercategoria" inverse="false" lazy="false" fetch="select">
             <key>
                 <column name="id_pregunta" not-null="true" />
             </key>
@@ -28,7 +28,7 @@
                 <column name="id_categoria" not-null="true" />
             </many-to-many>
         </set>
-        <set name="respuestas" table="respuestapregunta" inverse="false" lazy="true" fetch="select">
+        <set name="respuestas" table="respuestapregunta" inverse="false" lazy="false" fetch="select">
             <key>
                 <column name="id_pregunta" not-null="true" />
             </key>
@@ -36,7 +36,7 @@
                 <column name="id_respuesta" not-null="true" />
             </many-to-many>
         </set>
-        <set name="usuarios" table="crearpreguntausuario" inverse="false" lazy="true" fetch="select">
+        <set name="usuarios" table="crearpreguntausuario" inverse="false" lazy="false" fetch="select">
             <key>
                 <column name="id_pregunta" not-null="true" />
             </key>

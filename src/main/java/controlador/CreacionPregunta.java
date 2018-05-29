@@ -8,22 +8,25 @@ package controlador;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import modelo.Pregunta;
+import modelo.UsuarioCBD;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
 import javax.faces.context.FacesContext;
 import modelo.PreguntaBD;
+import modelo.Usuario;
 
 /**
  *
  * @author alfonso
  */
 @ManagedBean(name = "preguntaBean")
-@RequestScoped
-//@ViewScoped
+@SessionScoped
 
 public class CreacionPregunta implements Serializable {
 
@@ -62,6 +65,8 @@ public class CreacionPregunta implements Serializable {
      * La variable en la que se guardara la busqueda deseada.
      */
     private int resultados;
+    
+    private int id;
 
     /**
      * Metodo que regresa el contenido de la pregunta agregada.
@@ -174,41 +179,55 @@ public class CreacionPregunta implements Serializable {
         this.preguntas = preguntasAux;
     }
 
+    
+    public void setPregunta(Pregunta pregunta){
+        this.pregunta = pregunta;
+    }
+    
+    public Pregunta getPregunta(){
+        return this.pregunta;
+    }
+    
+    public int getId() {
+        return id;
+    }
     /**
      * Meotod que te direcciona a la pagina de confirmacion de creacion
      * de pregunta despues de agregarla a la base.
      * @return la direccion de la vista de confirmacion de pregunta,
      */
-    public String agregarPregunta() {
-        try {
-            System.out.println("Entrandoooooooooo");
-            Pregunta p =  new Pregunta();
+    public String agregarPregunta(Usuario usuario){        
+        try{                               
+            Pregunta p =  new Pregunta();                        
             PreguntaBD pbd = new PreguntaBD();
-            p.setContenido(this.getContenido());
-            p.setCategoria(this.getCategoria());
-            p.setDescripcion(this.getDescripcion());
+            UsuarioCBD ucbd = new UsuarioCBD();
+            p.setContenido(this.getContenido());            
+            p.setCategoria(this.getCategoria());            
+            p.setDescripcion(this.getDescripcion());	            
+            p.setIdPregunta(pbd.maxIndice());            
             p.setFechaCreacion(new Date());
-            p.setIdPregunta(pbd.maxIndice());
-            System.out.println("TODO BIEN=================");
+            p.setRespuestas(new HashSet());
+            p.setCategorias(new HashSet());
+            p.setUsuarios(new HashSet());
+            setPregunta(p);                   
+            p.getUsuarios().add(usuario);
             FacesContext context = FacesContext.getCurrentInstance();
-            if (p.getCategoria() == "" || p.getContenido() == ""
-                    || p.getDescripcion() == "") {
-                context.addMessage(null, new
-                FacesMessage("Error, debes llenar todos los campos",
-                            "Debes llenar todos los campos"));
+            if(p.getCategoria() == "" || p.getContenido() == "" || p.getDescripcion() == ""){
+                context.addMessage(null, new FacesMessage("Error, debes llenar todos los campos", "Debes llenar todos los campos") );
                 return "";
-            } else {
-                context.addMessage(null, new FacesMessage("Pregunta agregada",
-                        "Su pregunta se agrego correctamente"));
-                pbd.save(p);
-                return "VerificacionPreguntaIH";
+            }else{                                
+                pbd.save(p);                     
+                //usuario.getPreguntas().add(p);                
+                ucbd.update(usuario);                               
+                context.addMessage(null, new FacesMessage("Pregunta agregada", "Su pregunta se agrego correctamente") );                
+                return "VerificacionPreguntaIH";                
             }
-        } catch (Exception e) {
+            
+        }catch(Exception e){
             System.out.println("Algo fallo");
         }
-        return "index";
-
-    }
+        return "PrincipalIH.xhtml";        
+    }    
 
     /**
      * Metodo que te redirecciona a la pagina con los resultados de la busqeda.
@@ -238,5 +257,4 @@ public class CreacionPregunta implements Serializable {
         this.setResultados(0);
         return "ResultadoBusquedaIH?faces-redirect=true";
     }
-
 }
