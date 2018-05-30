@@ -22,7 +22,7 @@
                 </h4>
                  <c:choose>
                            <c:when test="#{iniciaSesion.hayImagen()}">
-                               <p:graphicImage value="#{iniciaSesion.usuario.imagenPerfil}" width="48" height="48"/>
+                               <p:graphicImage value="#{iniciaSesion.miFoto}" width="500" height="250"/>
                             </c:when>
                                 <c:otherwise>
                                     <h:graphicImage value="sinfoto.jpg"/>
@@ -98,12 +98,12 @@
                         </h:selectOneMenu>
                         
                         <p:outputLabel id="foto" value="Imagen Perfil:" /> 
-                        <p:fileUpload value="#{iniciaSesion.fotografia}" mode="simple" skinSimple="true" 
-                                    fileUploadListener="#{iniciaSesion.fileUploadListener}"/>
+                        <p:fileUpload value="#{iniciaSesion.fotografia}" mode="simple" 
+                                    />
                         
                         
                         <p:commandButton value="Guardar" action="#{iniciaSesion.guardar()}" id="ajax"
-                                         update="msn, growl" styleClass="ui-priority-primary"/>
+                                         update="msn, growl" styleClass="ui-priority-primary" ajax="false"/>
                         
                         <p><a href="PrincipalIH.xhtml">Volver</a></p>
                     </h:panelGrid>

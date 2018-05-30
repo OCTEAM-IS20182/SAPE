@@ -11,6 +11,8 @@ import javax.servlet.http.HttpSession;
 import modelo.Usuario;
 import modelo.UsuarioCBD;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.ByteArrayContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 /**
@@ -57,7 +59,7 @@ public class IniciaSesion implements Serializable {
     
     public List<Usuario> usuarios;
     
-    public UploadedFile fotografia;
+    public UploadedFile fotografia = null;
 
     /**
      * Variable de clase Ayuda a manejar si un usuario esta activo.
@@ -315,6 +317,7 @@ public class IniciaSesion implements Serializable {
      * @return un link a la pagina principal
      */
     public String ingresar() {
+        this.fotografia = null;
         UsuarioCBD usuarioBD = new UsuarioCBD();
         usuario = usuarioBD.valida(this.getUsername(),
                 this.getContrasena());
@@ -376,8 +379,10 @@ public class IniciaSesion implements Serializable {
                 usuario.setFechaDeNacimiento(this.fechaNacimiento);
                 System.out.println("iMAGEN--------------");
                 System.out.println(fotografia != null);
+                
                 if (fotografia != null) {
-                usuario.setImagenPerfil(fotografia.getContents());
+                    System.out.println(fotografia.getFileName());
+                    usuario.setImagenPerfil(fotografia.getContents());
                 }
                 usuario.setCarrera(this.carrera);
                 usuario.to_String();
@@ -462,7 +467,13 @@ public class IniciaSesion implements Serializable {
         if(usuario.getImagenPerfil() != null) {
             return true;            
         }
-
         return false;
+    }
+    
+    public StreamedContent getMiFoto() {
+        if (usuario.getImagenPerfil() != null) {
+            return new ByteArrayContent(usuario.getImagenPerfil());
+        }
+        return null;
     }
 }
