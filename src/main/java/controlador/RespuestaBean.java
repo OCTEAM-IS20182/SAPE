@@ -107,6 +107,7 @@ public class RespuestaBean {
                 System.out.println("Aqui 4");
                 pbd.update(p);
                 System.out.println("Aqui 5");
+                this.descripcion = "";
                 return "PreguntaIH?faces-redirect=true";
             }
         } catch(Exception e) {

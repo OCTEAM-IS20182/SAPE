@@ -20,24 +20,24 @@
       <div class="navbar-nav ml-auto">
          <c:choose>
              <c:when test="#{iniciaSesion.activo}">
-            <div class="my-2 my-lg-0">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" 
-                     id="dropdown03" data-toggle="dropdown" aria-haspopup="true" 
-                     aria-expanded="false">#{iniciaSesion.username}</a>
-                 <div class="dropdown-menu" aria-labelledby="dropdown03">
-                     <a class="dropdown-item" href="EditaPerfilIH.xhtml">Editar Perfil</a>
-                     <a class="dropdown-item" href="InsercionPreguntaIH.xhtml">Agrega Pregunta</a>
-                      <c:choose>
-                          <c:when test="#{iniciaSesion.usuario.permisosAdmin}">
-                            <a class="dropdown-item" href="EliminaUsuariosIH.xhtml">Borrar Usuarios</a>
-                         </c:when>
-                        <c:otherwise>
-                    </c:otherwise>
-         </c:choose>
-                 </div>
-          </li>
-              
+                <div class="my-2 my-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="http://example.com" 
+                         id="dropdown03" data-toggle="dropdown" aria-haspopup="true" 
+                         aria-expanded="false">#{iniciaSesion.username}</a>
+                     <div class="dropdown-menu" aria-labelledby="dropdown03">
+                         <a class="dropdown-item" href="EditaPerfilIH.xhtml">Editar Perfil</a>
+                         <a class="dropdown-item" href="InsercionPreguntaIH.xhtml">Agrega Pregunta</a>
+                         <c:choose>
+                             <c:when test="#{iniciaSesion.usuario.permisosAdmin}">
+                                 <a class="dropdown-item" href="EliminaUsuariosIH.xhtml">Elimina Usuarios</a>
+                             </c:when>
+                             <c:otherwise>
+                             </c:otherwise>
+                         </c:choose>
+                     </div>
+                    </li>
+
             </div>
                  <h:form id="exit">
                           <h:commandButton action="#{iniciaSesion.cerrarSesion()}"

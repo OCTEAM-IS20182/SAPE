@@ -33,14 +33,13 @@
                         <div class="card mb-4 box-shadow">
                             <img src="#{iniciaSesion.usuario.getImagenPerfil()}" class="img-circle" alt="Foto de Perfil"/>    
                                 <div class="card-body"-->
-                                    <h:form enctype="multipart/form-data">
-                                      <p:growl id="messages" showDetail="true" />
-                                                <p:fileUpload value="#{iniciaSesion.imagen}" mode="simple" skinSimple="true" 
-                                                              fileUploadListener="#{iniciaSesion.fileUploadListener}"/>
+<!--                                    <h:form id= "forma" enctype="multipart/form-data">
+                                        <p:fileUpload value="#{iniciaSesion.fotografia}" mode="simple" skinSimple="true" 
+                                                          />
 
-<!--                                                <p:commandButton value="Submit" ajax="false" 
-                                                 actionListener="#{fileUploadView.upload}" disabled="true" />-->
-                                    </h:form>
+                                                <p:commandButton value="Submit" ajax="false" 
+                                                 actionListener="#{fileUploadView.upload}" disabled="true" />
+                                    </h:form>-->
                             <!--/div>
                         </div>
                     </li-->
@@ -67,7 +66,7 @@
              
             <!-- DATOS -->    
             <div class="mb-3">
-                <h:form class="formulario">
+                <h:form class="formulario" enctype="multipart/form-data">
                     <p:growl id="growl" showDetail="true" />
 
                     <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" >
@@ -97,6 +96,11 @@
                             <f:selectItem itemLabel="Ciencias de la Tierra" itemValue="Ciencias de la Tierra" />
                             <f:selectItem itemLabel="Matematicas Aplicadas" itemValue="Matematicas Aplicadas" />
                         </h:selectOneMenu>
+                        
+                        <p:outputLabel id="foto" value="Imagen Perfil:" /> 
+                        <p:fileUpload value="#{iniciaSesion.fotografia}" mode="simple" skinSimple="true" 
+                                    fileUploadListener="#{iniciaSesion.fileUploadListener}"/>
+                        
                         
                         <p:commandButton value="Guardar" action="#{iniciaSesion.guardar()}" id="ajax"
                                          update="msn, growl" styleClass="ui-priority-primary"/>

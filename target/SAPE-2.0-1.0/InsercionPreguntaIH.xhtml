@@ -11,7 +11,7 @@
         <div class="jumbotron">
         <div class="container">
             
-            <h:form id ="myForm">
+            <h:form id = "myForm">
                 <h1>Agregar pregunta</h1><br/>
                 <h3>Inserte su pregunta</h3><br/>
             
@@ -30,23 +30,21 @@
                     <tr>
                         <td><h3>Categoria:</h3></td> 
                         <td>
-                        <h:selectOneMenu id="categoria" value="#{preguntaBean.categoria}" class = "categorias">
+                            <h:inputTextarea value="#{preguntaBean.categoria}" id="categoria"  rows="2" cols="50"/>
+<!--                        <h:selectOneMenu id="categoria" value="#{preguntaBean.categoria}" class = "categorias">
                             <f:selectItem itemLabel="Selecciona una" itemValue="" noSelectionOption="true" />
                             <f:selectItem itemLabel="Academica" itemValue="Academica" />
                             <f:selectItem itemLabel="Administriva" itemValue="Administrativa" />
                             <f:selectItem itemLabel="General" itemValue="General" />                            
-                        </h:selectOneMenu>
+                        </h:selectOneMenu>-->
                         </td>   
                     </tr>     
                     
                 </table>
             <div align="center">
-                <h:commandButton id = "agregar" value="Agregar" action="#{preguntaBean.agregarPregunta()}" 
+                <h:commandButton id = "agregar" value="Agregar" action="#{preguntaBean.agregarPregunta(iniciaSesion.usuario)}" 
                                  actionListener="#{preguntaBean.listener}" class="btn btn-success btn-md" />
-		<!-- EL BOTÓN DE ABAJO VA EN LA VISTA DE VER PREGUNTA-->
-                <h:commandButton id = "agregar_respuesta" value="AgregarRespuesta" 
-                                 action="InsercionRespuestaIH.xhtml" class="btn btn-success btn-md"/>
-            </div>                
+           </div>                
             </h:form>         
         </div>
         </div>

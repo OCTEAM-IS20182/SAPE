@@ -196,9 +196,9 @@ public class CreacionPregunta implements Serializable {
      * de pregunta despues de agregarla a la base.
      * @return la direccion de la vista de confirmacion de pregunta,
      */
-    public String agregarPregunta(Usuario usuario){        
-        try{                               
-            Pregunta p =  new Pregunta();                        
+    public String agregarPregunta(Usuario usuario){
+        try {
+            Pregunta p =  new Pregunta();
             PreguntaBD pbd = new PreguntaBD();
             UsuarioCBD ucbd = new UsuarioCBD();
             p.setContenido(this.getContenido());            

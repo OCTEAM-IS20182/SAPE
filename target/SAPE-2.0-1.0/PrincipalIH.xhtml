@@ -6,23 +6,68 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html">
 
   <ui:define name="content">
-    <body class="text-center">
-        <div class="jumbotron">
-        <div class="container">
-            <h:form id ="myForm2">
-                <h1>Buscar</h1>
-                <table align="center">
-                    <tr>                
-                        <td><h:inputText value="#{buscaBean.contenido}" id="contenido"/></td>
-                    </tr>                    
-                </table>
-            <div align="center">
-                <h:commandButton id = "agregar" value="Buscar" action="#{buscaBean.buscar()}"/>
-            </div>                
-            </h:form>         
-        </div>
-        </div>
-    </body>    
+     <main role="main">
+         <div class= "ui-fluid">
+            <h:graphicImage value="/ciencias.jpg" class = "img-fluid text-center"/>
+         <div class="carousel-caption">
+             <h1 font-size = "5rm">Bienvenidos al Foro de Ayuda Para Estudiantes.</h1>      
+             <br/><br/>
+             <h4>Te invitamos a navegar por el foro...</h4>
+             <h:form id="myForm2">
+             <div class="row">
+                  <div class="col-10">
+                    
+                    <p:inputText class="form-control"  value="#{buscaBean.contenido}" type="text" placeholder="Buscar"/>
+                    <br/>
+                 </div>
+                <div class="col-2">
+                 <h:commandButton value="Buscar" id="ajax" action ="#{buscaBean.buscar()}" class="btn btn-success btn-md"/>
+                 </div> 
+                </div>
+              </h:form> 
+             </div>
+      </div>
+    
+     <br/><br/>
+      <div class="container marketing text-center">
+  <!-- Three columns of text below the carousel -->
+        <div class="row">
+          <div class="col-lg-4">
+            <img class="rounded-circle" src="OCTEAM.jpg" alt="Generic placeholder image" width="140" height="140"/>
+            <h2>OCTEAM</h2>
+            <p>Equipo responsable del desarrollo y mantenimiento del "Sistema de Ayuda Para Estudiantes" (SAPE), 
+                conformado por los estudiantes de la carrera Ciencias de la Computación: Fong Baeza Luis Fernando Yang, 
+                Méndez Servín Melissa, Sánchez Pérez Pedro Juan Salvador y Vargas Alba Alfonso, 
+                llevando a cargo los roles de Representante Técnico, Representante de Calidad, 
+                Representante de Equipo y Representante de Colaboración respectivamente...</p>
+            <p><a class="btn btn-secondary" href="#" role="button">Seguir leyendo... </a></p>
+          </div><!-- /.col-lg-4 -->
+          <div class="col-lg-4">
+            <h:graphicImage value= "hanna.jpg" class= "rounded-circle" width="140" height="140"/>
+            <h2>Dra. Hanna Jadwiga Oktaba.</h2>
+            <p>En 1982 obtuvo el doctorado por la Universidad de Varsovia, Polonia. A partir de 1983 y hasta la
+                fecha es profesora de la Universidad Nacional Autónoma de México a nivel licenciatura y de
+                posgrado. Sus áreas de interés principales son Ingeniería de Software, Tecnología Orientada a
+                Objetos, Modelos de Procesos de Software y Mejora de Procesos.
+                Fue fundadora de la Asociación Mexicana para la Calidad en Ingeniería de Software (AMCIS) y de
+                la Sociedad Mexicana en Ciencia de la Computación SMCC).
+                A partir de 2002 estuvo a cargo de los proyectos MoProSoft, EvalProSoft y Pruebas controladas
+                apoyados por el programa PROSOFT de la Secretaría de Economía. Como resultado de estos
+                proyectos, en octubre de 2005, se aprobó la norma mexicana para la industria de software basada
+                en MoProSoft y EvalProSoft...</p>
+            <p><a class="btn btn-secondary" href="#" role="button">Seguir leyendo... </a></p>
+          </div><!-- /.col-lg-4 -->
+          <div class="col-lg-4">
+            <h:graphicImage value="canek.jpg" class="rounded-circle" width="140" height="140"/>
+            <h2>Dr. Canek Peláez Valdés.</h2>
+            <p>Licenciado en Ciencias de la Computación; además Maestro en Ciencias y Doctor en Ciencias, 
+                todas en la UNAM. Antes de eso trabajé en la iniciativa privada y con el Instituto
+                Nacional Electoral...</p>
+            <p><a class="btn btn-secondary" href="#" role="button">Seguir leyendo... </a></p>
+          </div><!-- /.col-lg-4 -->
+        </div><!-- /.row -->
+      </div>
+      </main>
   </ui:define>
 
 </ui:composition>

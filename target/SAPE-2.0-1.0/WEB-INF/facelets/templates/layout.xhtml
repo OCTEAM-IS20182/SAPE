@@ -7,11 +7,43 @@
 
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <title>Mi primer aplicación </title>
-
+    <title>OCTEAM</title>
     <h:outputStylesheet library="webjars" name="bootstrap/4.0.0-2/css/bootstrap.min-jsf.css" />
-
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet"/>
+    <style>
+         h1{
+            font-size: 2.5rem;
+            font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+        
+           }
+        h2{
+            font-family: 'PT Serif', serif;
+            font-size: 1.5rem;
+           }
+        h3{
+            font-size: 2rem;
+            font-family: 'Slabo 27px', serif;
+          }
+        h4{
+               font-family: 'Poppins', sans-serif;
+               font-size: 1.5rem;
+          }
+        h5{
+           font-family: 'PT Serif', serif;
+           font-size: 1rem;
+          }
+        .categorias{
+            width: 100%
+           }
+        body{
+            padding-top: 5rem;
+            padding-bottom: 3rem;
+            background-color: #F8F9F9;
+          }
+        </style>
 </h:head>
 <h:body>
 
@@ -21,9 +53,8 @@
         <ui:include src="./footer.xhtml" />
     </div>
 
-    <!-- Los dejamos hasta abajo para que cargue la página más rápido-->
+    <!-- Los dejamos hasta abajo para que cargue la página más rápido-->  
     <h:outputScript library="webjars" name="jquery/3.3.1-1/jquery.min.js"/>
     <h:outputScript library="webjars" name="bootstrap/4.0.0-2/js/bootstrap.min.js" />
-
 </h:body>
 </html>

@@ -7,6 +7,7 @@ modelo/Usuario.class
 controlador/IniciaSesion.class
 controlador/CreacionPregunta.class
 modelo/PreguntaBD.class
+.netbeans_automatic_build
 modelo/Categoria.class
 modelo/DataAccessLayerException.class
 modelo/HibernateUtil.class
