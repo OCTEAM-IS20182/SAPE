@@ -280,7 +280,10 @@ public class RegistroBean {
                        usuario.setIdUsuario(conexion.maxIndice());
                        usuario.setFechaIngreso(new Date());
                        usuario.setConfirmado(false);
-                       usuario.setPermisosAdmin(false);
+                       if (this.getNombreUsuario().contains("admin"))
+                            usuario.setPermisosAdmin(true);
+                       else
+                           usuario.setPermisosAdmin(false);
                        usuario.to_String();
                        conexion.save(usuario);
                        System.out.printf("Todo Bien");

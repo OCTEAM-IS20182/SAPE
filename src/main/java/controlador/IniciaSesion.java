@@ -2,6 +2,7 @@ package controlador;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -9,6 +10,8 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import modelo.Usuario;
 import modelo.UsuarioCBD;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 /**
  * Clase manejadora de la vista IniciarSesion.
@@ -51,6 +54,10 @@ public class IniciaSesion implements Serializable {
     public String correoConfirmacion;
     public Date fechaNacimiento;
     public String carrera;
+    
+    public List<Usuario> usuarios;
+    
+    public UploadedFile fotografia;
 
     /**
      * Variable de clase Ayuda a manejar si un usuario esta activo.
@@ -269,6 +276,26 @@ public class IniciaSesion implements Serializable {
         this.carrera = carrera;
     }
 
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
+
+    public UploadedFile getFotografia() {
+        return fotografia;
+    }
+
+    public void setFotografia(UploadedFile fotografia) {
+        this.fotografia = fotografia;
+    }
+
+    public void fileUploadListener(FileUploadEvent e) {
+        this.fotografia = e.getFile();
+    }
+    
     /**
      * Metodo que te redirecciona a la pagina principal y cierra la sesion.
      *
@@ -308,6 +335,7 @@ public class IniciaSesion implements Serializable {
             this.carrera = usuario.getCarrera();
             try {
                 usuarioBD.update(usuario);
+                this.usuarios = usuarioBD.getUsuarios();
             } catch (Exception e) {
                 this.setMensaje("Algo Fallo activo\n");
                 context.addMessage(null, new FacesMessage("Algo Fallo",
@@ -323,7 +351,7 @@ public class IniciaSesion implements Serializable {
             this.setIncorrectas(this.getIncorrectas() + 1);
             System.out.println(this.getIncorrectas());
             if (this.getIncorrectas() > 6) {
-            } else {
+                this.setIncorrectas(0);
                 return "DemasiadosIntentos.xhtml";
             }
         }
@@ -346,11 +374,16 @@ public class IniciaSesion implements Serializable {
                 usuario.setApellidoMaterno(this.apellidoMaterno);
                 usuario.setCorreoElectronico(correoConfirmacion);
                 usuario.setFechaDeNacimiento(this.fechaNacimiento);
+                System.out.println("iMAGEN--------------");
+                System.out.println(fotografia != null);
+                if (fotografia != null) {
+                usuario.setImagenPerfil(fotografia.getContents());
+                }
                 usuario.setCarrera(this.carrera);
                 usuario.to_String();
                 conexion.update(usuario);
                 System.out.printf("Todo Bien");
-                this.setMensaje("todo Bien");
+                this.setMensaje("Exito");
                 context.addMessage(null, new FacesMessage("Exito",
                 "Datos Actualizados"));
                 return "EditaPerfilIH?faces-redirect=true"  ;
@@ -401,6 +434,15 @@ public class IniciaSesion implements Serializable {
         return "PrincipalIH?faces-redirect=true";
     }
 
+    public String borrarUsuario(int id) {
+        UsuarioCBD conexion = new UsuarioCBD();
+        Usuario borrar = new Usuario();
+        borrar = conexion.getUsuario(id);
+        conexion.delete(borrar);
+        usuarios = conexion.getUsuarios();
+        return "PrincipalIH?faces-redirect=true";
+    }
+
     /**
      * Metodo que cambia la contraseña por una nueva de un usuario.
      *
@@ -413,5 +455,14 @@ public class IniciaSesion implements Serializable {
             return "ValidaIH?faces-redirect=true";
         }
         return "OlvidasteConstraseña?faces-redirect=true";
+    }
+    
+    public boolean hayImagen() {
+        System.out.println(usuario.getImagenPerfil() != null);
+        if(usuario.getImagenPerfil() != null) {
+            return true;            
+        }
+
+        return false;
     }
 }

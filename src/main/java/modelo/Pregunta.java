@@ -188,6 +188,12 @@ public class Pregunta  implements java.io.Serializable {
         this.usuarios = usuariosAux;
     }
 
+    public void imprime() {
+        System.out.println(this.categoria);
+        System.out.println(this.descripcion);
+        System.out.println(this.contenido);
+        
+    }
 
 
 

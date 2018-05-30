@@ -131,6 +131,15 @@ public class BuscaBean implements Serializable {
         pregunta = conexion.getPregunta(id);
         return "PreguntaIH?faces-redirect=true";
     }
+    
+    public String borrar(int id) {
+        PreguntaBD conexion = new PreguntaBD();
+        Pregunta borrar = new Pregunta();
+        borrar = conexion.getPregunta(id);
+        conexion.delete(borrar);
+        preguntas = conexion.busca(contenido);
+        return "ResultadoBusquedaIH?faces-redirect=true";
+    }
 
 }
 

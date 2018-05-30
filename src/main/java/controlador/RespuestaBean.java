@@ -81,33 +81,38 @@ public class RespuestaBean {
 
 
     public String agregarRespuesta(Pregunta p){
-        
-        try{                           
-            Respuesta r =  new Respuesta();              
+
+        try {
+            System.out.println(p != null);
+            Respuesta r =  new Respuesta();
             RespuestaBD rbd = new RespuestaBD();
             PreguntaBD pbd = new PreguntaBD();
             r.setDescripcion(this.getDescripcion());
             System.out.println(r.getDescripcion());
-            r.setIdRespuesta(rbd.maxIndice());                        
-            r.setFechaCreacion(new Date());            
+            r.setIdRespuesta(rbd.maxIndice());
+            r.setFechaCreacion(new Date());
             setRespuesta(r);
             FacesContext context = FacesContext.getCurrentInstance();
-            if("".equals(r.getDescripcion())){                
+            if ("".equals(r.getDescripcion())) {
                 context.addMessage(null, new FacesMessage("Error, debes llenar todos los campos", "Debes llenar todos los campos") );
-                return "InsercionRespuestaIH";
-            }else{                
+                return "PreguntaIH?faces-redirect=true";
+            } else {
                 context.addMessage(null, new FacesMessage("Respuesta agregada", "Su respuesta se agrego correctamente") );
+                System.out.println("Aqui 1");
                 r.getPreguntas().add(p);
+                System.out.println("Aqui 2");
                 rbd.save(r);
-                p.getRespuestas().add(r); 
+                System.out.println("Aqui 3");
+                p.getRespuestas().add(r);
+                System.out.println("Aqui 4");
                 pbd.update(p);
-                
-                return "VerificacionRespuestaIH";
+                System.out.println("Aqui 5");
+                return "PreguntaIH?faces-redirect=true";
             }
-            
-        }catch(Exception e){
+        } catch(Exception e) {
             System.out.println("Algo fallo");
+            System.out.println(e);
         }
-        return "index";        
-    }   
+        return "welcomePrimefaces?faces-redirect=true";
+    }
 }

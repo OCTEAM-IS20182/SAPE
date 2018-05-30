@@ -263,4 +263,68 @@ public class UsuarioCBD extends ConexionBD {
         }
     }
 
+    public List<Usuario> getUsuarios() {
+        SessionFactory factory;
+        try {
+            factory = new Configuration().configure().buildSessionFactory();
+        } catch (Throwable ex) {
+            System.err.println("Failed to create sessionFactory object." + ex);
+            throw new ExceptionInInitializerError(ex);
+        }
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            String sql = "SELECT * FROM usuario";
+            SQLQuery query = session.createSQLQuery(sql);
+            query.addEntity(Usuario.class);
+            List<Usuario> userList = query.list();
+            tx.commit();
+            if (userList != null && !userList.isEmpty()) {
+                return userList;
+            } else {
+                return null;
+            }
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            return null;
+        } finally {
+            session.close();
+        }
+    }
+    
+    public Usuario getUsuario(int id) {
+        SessionFactory factory;
+        try {
+            factory = new Configuration().configure().buildSessionFactory();
+        } catch (Throwable ex) {
+            System.err.println("Failed to create sessionFactory object." + ex);
+            throw new ExceptionInInitializerError(ex);
+        }
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            String sql = "SELECT * FROM usuario WHERE id_usuario = " + Integer.toString(id);
+            SQLQuery query = session.createSQLQuery(sql);
+            query.addEntity(Usuario.class);
+            List<Usuario> userList = query.list();
+            tx.commit();
+            if (userList != null && !userList.isEmpty()) {
+                return userList.get(0);
+            } else {
+                return null;
+            }
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            return null;
+        } finally {
+            session.close();
+        }
+    }
+
 }

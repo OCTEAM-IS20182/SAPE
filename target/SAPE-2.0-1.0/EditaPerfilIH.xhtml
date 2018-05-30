@@ -20,7 +20,14 @@
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
                 <span class="text-muted">Foto de Perfil</span>
                 </h4>
-                <h:graphicImage value="sinfoto.jpg"/> 
+                 <c:choose>
+                           <c:when test="#{iniciaSesion.hayImagen()}">
+                               <p:graphicImage value="#{iniciaSesion.usuario.imagenPerfil}" width="48" height="48"/>
+                            </c:when>
+                                <c:otherwise>
+                                    <h:graphicImage value="sinfoto.jpg"/>
+                                </c:otherwise>
+                            </c:choose>
                 <ul class="list-group mb-3">
                     <!--li class="list-group-item d-flex justify-content-between lh-condensed">
                         <div class="card mb-4 box-shadow">
@@ -28,11 +35,11 @@
                                 <div class="card-body"-->
                                     <h:form enctype="multipart/form-data">
                                       <p:growl id="messages" showDetail="true" />
-                                                <p:fileUpload value="#{EditaPerfil.imagen}" mode="simple" 
-                                               sizeLimit="100000" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                                                <p:fileUpload value="#{iniciaSesion.imagen}" mode="simple" skinSimple="true" 
+                                                              fileUploadListener="#{iniciaSesion.fileUploadListener}"/>
 
-                                                <p:commandButton value="Submit" ajax="false" 
-                                                 actionListener="#{fileUploadView.upload}" disabled="true" />
+<!--                                                <p:commandButton value="Submit" ajax="false" 
+                                                 actionListener="#{fileUploadView.upload}" disabled="true" />-->
                                     </h:form>
                             <!--/div>
                         </div>

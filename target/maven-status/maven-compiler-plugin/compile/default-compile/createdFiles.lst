@@ -13,4 +13,7 @@ modelo/HibernateUtil.class
 modelo/Pregunta.class
 modelo/ConexionBD.class
 modelo/HibernateFactory.class
+controlador/MuestraPregunta.class
 modelo/Respuesta.class
+controlador/EditaPerfil.class
+controlador/Confirmacion.class
